@@ -4,6 +4,7 @@ require "mocha/setup"
 require "assert_difference"
 require "active_record"
 require "acts-as-taggable-on"
+require_relative "../lib/log_book"
 
 FileUtils.rm("#{File.dirname(__FILE__)}/db/log_book.sqlite", :force => true)
 
@@ -12,10 +13,10 @@ ActiveRecord::Base.establish_connection(
   :database => "#{File.dirname(__FILE__)}/db/log_book.sqlite"
 )
 
+require_relative "../lib/log_book/event"
+
 require_relative "../lib/generators/log_book/templates/create_log_book_events"
 CreateLogBookEvents.up
-
-require_relative "../lib/log_book"
 
 load("#{File.dirname(__FILE__)}/schema.rb")
 load("#{File.dirname(__FILE__)}/models.rb")

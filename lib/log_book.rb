@@ -1,9 +1,7 @@
 require "active_record"
 require "acts-as-taggable-on"
 require_relative "log_book/version"
-require_relative "log_book/event"
 require_relative "log_book/plugin"
-
 
 module LogBook
   OPERATIONS = {
@@ -47,9 +45,5 @@ module LogBook
   def self.kind_tag(historizable)
     historizable.class.name.underscore
   end
-end
-
-ActiveSupport.on_load(:active_record) do
-  include LogBook::Plugin
 end
 

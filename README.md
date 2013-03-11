@@ -8,9 +8,16 @@ Add this line to your application's Gemfile:
 
     gem "log_book"
 
+As the Model should be loaded after ActiveReccord has established the connection you have to add this:
+
+    # config/application.rb
+    config.after_initialize do
+      require "log_book/event"
+    end
+
 ### Create the table
 
-    rails generate guinea_pig:migration
+    rails generate log_book:migration
     rake db:migrate
 
 ### ActsOnTaggableOn dependency

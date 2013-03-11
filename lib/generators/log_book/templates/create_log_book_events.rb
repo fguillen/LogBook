@@ -12,6 +12,6 @@ class CreateLogBookEvents < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :log_books
+    drop_table :log_book_events
   end
 end

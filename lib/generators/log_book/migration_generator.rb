@@ -1,9 +1,9 @@
 require "rails/generators"
 
-class GuineaPig::MigrationGenerator < Rails::Generators::Base
+class LogBook::MigrationGenerator < Rails::Generators::Base
   include Rails::Generators::Migration
 
-  desc "Generates migration for ABTest model"
+  desc "Generates migration for LogBook::Event model"
 
   def self.source_root
     File.join(File.dirname(__FILE__), "templates")
@@ -20,6 +20,6 @@ class GuineaPig::MigrationGenerator < Rails::Generators::Base
   end
 
   def copy_migration
-    migration_template "create_log_books.rb", "db/migrate/create_log_books.rb"
+    migration_template "create_log_book_events.rb", "db/migrate/create_log_book_events.rb"
   end
 end
