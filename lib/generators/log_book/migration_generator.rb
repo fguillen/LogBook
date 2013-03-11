@@ -20,6 +20,6 @@ class GuineaPig::MigrationGenerator < Rails::Generators::Base
   end
 
   def copy_migration
-    migration_template "create_history_events.rb", "db/migrate/create_history_events.rb"
+    migration_template "create_log_books.rb", "db/migrate/create_log_books.rb"
   end
 end

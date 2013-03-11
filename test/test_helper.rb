@@ -5,17 +5,17 @@ require "assert_difference"
 require "active_record"
 require "acts-as-taggable-on"
 
-FileUtils.rm("#{File.dirname(__FILE__)}/db/history_event.sqlite", :force => true)
+FileUtils.rm("#{File.dirname(__FILE__)}/db/log_book.sqlite", :force => true)
 
 ActiveRecord::Base.establish_connection(
   :adapter  => "sqlite3",
-  :database => "#{File.dirname(__FILE__)}/db/history_event.sqlite"
+  :database => "#{File.dirname(__FILE__)}/db/log_book.sqlite"
 )
 
-require_relative "../lib/generators/history_event/templates/create_history_events"
-CreateHistoryEvents.up
+require_relative "../lib/generators/log_book/templates/create_log_book_events"
+CreateLogBookEvents.up
 
-require_relative "../lib/history_event"
+require_relative "../lib/log_book"
 
 load("#{File.dirname(__FILE__)}/schema.rb")
 load("#{File.dirname(__FILE__)}/models.rb")

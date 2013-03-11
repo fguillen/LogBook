@@ -1,5 +1,5 @@
-class HistoryEvent::Model < ::ActiveRecord::Base
-  self.table_name = "history_events"
+class LogBook::Event < ::ActiveRecord::Base
+  self.table_name = "log_book_events"
 
   attr_accessible :historian, :historizable, :text, :tag_list
 

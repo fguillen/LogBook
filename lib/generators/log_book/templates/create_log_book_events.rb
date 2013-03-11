@@ -1,6 +1,6 @@
-class CreateHistoryEvents < ActiveRecord::Migration
+class CreateLogBookEvents < ActiveRecord::Migration
   def self.up
-    create_table :history_events do |t|
+    create_table :log_book_events do |t|
       t.integer :historian_id
       t.string :historian_type
       t.integer :historizable_id
@@ -12,6 +12,6 @@ class CreateHistoryEvents < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :history_events
+    drop_table :log_books
   end
 end

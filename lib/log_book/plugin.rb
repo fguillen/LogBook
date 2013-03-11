@@ -1,30 +1,30 @@
-module HistoryEvent::LogBook
+module LogBook::Plugin
   def self.included(base)
     base.send :extend, ClassMethods
     base.send :include, InstanceMethods
   end
 
   module ClassMethods
-    def history_event_log_book
-      after_create :history_event_log_book_on_create
-      after_update :history_event_log_book_on_update
-      after_destroy :history_event_log_book_on_destroy
+    def log_book
+      after_create :log_book_event_on_create
+      after_update :log_book_event_on_update
+      after_destroy :log_book_event_on_destroy
 
-      attr_accessor :last_event_historian
+      attr_accessor :log_book_historian
     end
   end
 
   module InstanceMethods
-    def history_event_log_book_on_create
-      HistoryEvent.created(self.last_event_historian, self)
+    def log_book_event_on_create
+      LogBook.created(self.log_book_historian, self)
     end
 
-    def history_event_log_book_on_update
-      HistoryEvent.updated(self.last_event_historian, self)
+    def log_book_event_on_update
+      LogBook.updated(self.log_book_historian, self)
     end
 
-    def history_event_log_book_on_destroy
-      HistoryEvent.destroyed(self.last_event_historian, self)
+    def log_book_event_on_destroy
+      LogBook.destroyed(self.log_book_historian, self)
     end
 
     def pretty_changes

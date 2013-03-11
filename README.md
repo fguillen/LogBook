@@ -1,4 +1,4 @@
-# HistoryEvent
+# LogBook
 
 Storing an events log book.
 
@@ -6,32 +6,42 @@ Storing an events log book.
 
 Add this line to your application's Gemfile:
 
-    gem "history_event"
+    gem "log_book"
+
+### Create the table
+
+    rails generate guinea_pig:migration
+    rake db:migrate
+
+### ActsOnTaggableOn dependency
+
+    rails generate acts_as_taggable_on:migration
+    rake db:migrate
 
 ## Usage
 
 In any point:
 
-    HistoryEvent.event(<who executes the action>, <over which object>, <text>, <list of tags>)
+    LogBook.event(<who executes the action>, <over which object>, <text>, <list of tags>)
 
 For example:
 
-    HistoryEvent.event(current_user, item, "Item canceled", [:purchase, :canceled])
+    LogBook.event(current_user, item, "Item canceled", [:purchase, :canceled])
 
 ## ActiveRecord integration
 
     class MyModel < ActiveRecord::Base
-      history_event_log_book
+      log_book_log_book
     end
 
-    my_model = MyModel.create!  # => HistoryEvent created
-    my_model = MyModel.save!    # => HistoryEvent created
-    my_model = MyModel.destroy! # => HistoryEvent created
+    MyModel.create!   # => LogBook created
+    my_model.save!    # => LogBook created
+    my_model.destroy! # => LogBook created
 
-If you want to include _who executes the action_ use the special attribute `last_event_historian`:
+If you want to include _who executes the action_ use the special attribute `log_book_historian`:
 
-    my_model.last_event_historian = current_user
-    my_model = MyModel.save!
+    my_model.log_book_historian = current_user
+    my_model.save!
 
 ## Sate of the art
 

@@ -1,11 +1,11 @@
 require "active_record"
 require "acts-as-taggable-on"
-require_relative "history_event/version"
-require_relative "history_event/model"
-require_relative "history_event/log_book"
+require_relative "log_book/version"
+require_relative "log_book/event"
+require_relative "log_book/plugin"
 
 
-module HistoryEvent
+module LogBook
   OPERATIONS = {
     :create => "create",
     :update => "update",
@@ -18,7 +18,7 @@ module HistoryEvent
     tag_list_composed << kind_tag(historizable) if historizable
     tag_list_composed += [tag_list].flatten     if tag_list
 
-    HistoryEvent::Model.create!(
+    LogBook::Event.create!(
       :historian => historian,
       :historizable => historizable,
       :text => text,
@@ -27,15 +27,15 @@ module HistoryEvent
   end
 
   def self.created(historian, historizable)
-    HistoryEvent.event(historian, historizable, "#{historizable.class.name} created", HistoryEvent::OPERATIONS[:create])
+    LogBook.event(historian, historizable, "#{historizable.class.name} created", LogBook::OPERATIONS[:create])
   end
 
   def self.updated(historian, historizable)
-    HistoryEvent.event(historian, historizable, "#{historizable.class.name} updated [#{historizable.pretty_changes}]", HistoryEvent::OPERATIONS[:update])
+    LogBook.event(historian, historizable, "#{historizable.class.name} updated [#{historizable.pretty_changes}]", LogBook::OPERATIONS[:update])
   end
 
   def self.destroyed(historian, historizable)
-    HistoryEvent.event(historian, historizable, "#{historizable.class.name} destroyed", HistoryEvent::OPERATIONS[:destroy])
+    LogBook.event(historian, historizable, "#{historizable.class.name} destroyed", LogBook::OPERATIONS[:destroy])
   end
 
   private
@@ -50,6 +50,6 @@ module HistoryEvent
 end
 
 ActiveSupport.on_load(:active_record) do
-  include HistoryEvent::LogBook
+  include LogBook::Plugin
 end
 

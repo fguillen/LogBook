@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'history_event/version'
+require 'log_book/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "history_event"
-  spec.version       = HistoryEvent::VERSION
+  spec.name          = "log_book"
+  spec.version       = LogBook::VERSION
   spec.authors       = ["Fernando Guillen"]
   spec.email         = ["fguillen.mail@gmail.com"]
   spec.description   = "Storing an events log book"
   spec.summary       = "Storing an events log book"
-  spec.homepage      = "https://github.com/fguillen/HistoryEvent"
+  spec.homepage      = "https://github.com/fguillen/LogBook"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
