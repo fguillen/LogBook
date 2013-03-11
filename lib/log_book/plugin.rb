@@ -29,7 +29,7 @@ module LogBook::Plugin
 
     def pretty_changes
       result =
-        self.previous_changes.reject { |k,v| k == "updated_at" || k =~ /password/ || k == "perishable_token" || k == "persistence_token" }.map do |k,v|
+        self.changes.reject { |k,v| k == "updated_at" || k =~ /password/ || k == "perishable_token" || k == "persistence_token" }.map do |k,v|
           old_value = v[0]
           new_value = v[1]
 
