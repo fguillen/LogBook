@@ -38,7 +38,7 @@ For example:
 ## ActiveRecord integration
 
     class MyModel < ActiveRecord::Base
-      log_book_log_book
+      log_book
     end
 
     MyModel.create!   # => LogBook created
