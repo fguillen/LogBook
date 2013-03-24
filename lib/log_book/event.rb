@@ -9,4 +9,6 @@ class LogBook::Event < ::ActiveRecord::Base
   belongs_to :historizable, :polymorphic => true
 
   validates :text, :presence => true
+
+  scope :by_recent, order("id desc")
 end

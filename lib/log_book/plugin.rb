@@ -20,7 +20,7 @@ module LogBook::Plugin
     end
 
     def log_book_event_on_update
-      LogBook.updated(self.log_book_historian, self)
+      LogBook.updated(self.log_book_historian, self) unless changes.empty?
     end
 
     def log_book_event_on_destroy
@@ -29,7 +29,7 @@ module LogBook::Plugin
 
     def pretty_changes
       result =
-        self.changes.reject { |k,v| k == "updated_at" || k =~ /password/ || k == "perishable_token" || k == "persistence_token" }.map do |k,v|
+        changes.reject { |k,v| k == "updated_at" || k =~ /password/ || k == "perishable_token" || k == "persistence_token" }.map do |k,v|
           old_value = v[0]
           new_value = v[1]
 
