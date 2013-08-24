@@ -52,7 +52,7 @@ If you want to include _who executes the action_ use the special attribute `log_
     
 ## TODO
 
-- Add `has_many :log_books, :dependent => :destroy` to models
+- Add `has_many :log_book_events, :class_name => "LogBook::Event", :as => :historizable, :dependent => :destroy` to models
 
 ## Sate of the art
 
