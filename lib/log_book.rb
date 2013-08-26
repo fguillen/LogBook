@@ -2,6 +2,7 @@ require "active_record"
 require "acts-as-taggable-on"
 require_relative "log_book/version"
 require_relative "log_book/plugin"
+require_relative "log_book/utils"
 
 module LogBook
   OPERATIONS = {
@@ -24,19 +25,19 @@ module LogBook
     )
   end
 
+  private
+
   def self.created(historian, historizable)
     LogBook.event(historian, historizable, "#{historizable.class.name} created", LogBook::OPERATIONS[:create])
   end
 
   def self.updated(historian, historizable)
-    LogBook.event(historian, historizable, "#{historizable.class.name} updated [#{historizable.pretty_changes}]", LogBook::OPERATIONS[:update])
+    LogBook.event(historian, historizable, "#{historizable.class.name} updated [#{LogBook::Utils.pretty_changes(historizable)}]", LogBook::OPERATIONS[:update])
   end
 
   def self.destroyed(historian, historizable)
     LogBook.event(historian, historizable, "#{historizable.class.name} destroyed", LogBook::OPERATIONS[:destroy])
   end
-
-  private
 
   def self.scope_tag(historian)
     historian.class.name.underscore

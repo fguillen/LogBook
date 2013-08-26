@@ -4,3 +4,7 @@ end
 class Item < ActiveRecord::Base
   log_book
 end
+
+class ItemWithOpts < Item
+  log_book(:dependent => :destroy)
+end

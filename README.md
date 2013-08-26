@@ -49,10 +49,9 @@ If you want to include _who executes the action_ use the special attribute `log_
 
     my_model.log_book_historian = current_user
     my_model.save!
-    
+
 ## TODO
 
-- Add `has_many :log_book_events, :class_name => "LogBook::Event", :as => :historizable, :dependent => :destroy` to models
 
 ## Sate of the art
 
