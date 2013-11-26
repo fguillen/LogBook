@@ -5,7 +5,7 @@ class CreateLogBookEvents < ActiveRecord::Migration
       t.string :historian_type
       t.integer :historizable_id
       t.string :historizable_type
-      t.string :text, :null => false
+      t.text :text, :null => false
 
       t.timestamps
     end
