@@ -1,4 +1,6 @@
 require "active_record"
+require "active_support/core_ext/module"
+require "protected_attributes"
 require "acts-as-taggable-on"
 require_relative "log_book/version"
 require_relative "log_book/plugin"

@@ -1,8 +1,9 @@
 require "minitest/unit"
 require "minitest/autorun"
 require "mocha/setup"
-require "assert_difference"
 require "active_record"
+require "active_support/core_ext/module"
+require "assert_difference"
 require "acts-as-taggable-on"
 require_relative "../lib/log_book"
 
