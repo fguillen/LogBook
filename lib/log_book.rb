@@ -18,7 +18,7 @@ module LogBook
     tag_list_composed << scope_tag(historian)   if historian
     tag_list_composed << kind_tag(historizable) if historizable
     tag_list_composed += [tag_list].flatten     if tag_list
-
+    
     LogBook::Event.create!(
       :historian => historian,
       :historizable => historizable,
