@@ -10,5 +10,5 @@ class LogBook::Event < ::ActiveRecord::Base
 
   validates :text, :presence => true
 
-  scope :by_recent, order("id desc")
+  scope :by_recent, -> { order("id desc") }
 end
