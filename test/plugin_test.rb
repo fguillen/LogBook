@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class PluginTest < MiniTest::Unit::TestCase
+class PluginTest < MiniTest::Test
   def setup
     LogBook::Event.destroy_all
     User.destroy_all

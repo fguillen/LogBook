@@ -21,7 +21,7 @@ CreateLogBookEvents.up
 load("#{File.dirname(__FILE__)}/schema.rb")
 load("#{File.dirname(__FILE__)}/models.rb")
 
-class MiniTest::Unit::TestCase
+class MiniTest::Test
   include AssertDifference
   FIXTURES = File.expand_path("#{File.dirname(__FILE__)}/fixtures")
 end

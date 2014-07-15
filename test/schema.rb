@@ -8,7 +8,8 @@ ActiveRecord::Schema.define :version => 0 do
   end
 
   # acts-as-taggable-on
-  # https://github.com/mbleigh/acts-as-taggable-on/blob/master/lib/generators/acts_as_taggable_on/migration/templates/active_record/migration.rb
+  # https://github.com/mbleigh/acts-as-taggable-on/tree/master/db/migrate
+  #
   create_table :tags do |t|
     t.string :name
   end
@@ -21,4 +22,6 @@ ActiveRecord::Schema.define :version => 0 do
 
     t.datetime :created_at
   end
+
+  add_column :tags, :taggings_count, :integer, default: 0
 end
