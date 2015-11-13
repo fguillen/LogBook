@@ -18,9 +18,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "rails", "~> 4.1.4"
+  spec.add_runtime_dependency "rails", "~> 4.2"
   spec.add_runtime_dependency "protected_attributes"
-  spec.add_runtime_dependency "acts-as-taggable-on", "3.3.0"
+  spec.add_runtime_dependency "acts-as-taggable-on"
 
   spec.add_development_dependency "bundler", "~> 1.6.3"
   spec.add_development_dependency "rake"

@@ -1,9 +1,13 @@
+
 require "active_record"
 require "active_support/core_ext/module"
 require "assert_difference"
 require "acts-as-taggable-on"
+
+# require "minitest/unit"
 require "minitest/autorun"
-require "mocha/setup"
+require "mocha/mini_test"
+
 require_relative "../lib/log_book"
 
 FileUtils.rm("#{File.dirname(__FILE__)}/db/log_book.sqlite", :force => true)
