@@ -1,6 +1,7 @@
 require "minitest/unit"
 require "minitest/autorun"
-require "mocha/setup"
+require "mocha/mini_test"
+
 require "active_record"
 require "active_support/core_ext/module"
 require "assert_difference"

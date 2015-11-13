@@ -41,18 +41,24 @@ class LogBookTest < MiniTest::Unit::TestCase
     LogBook.expects(:event).with(@user, item, "Item created", LogBook::OPERATIONS[:create])
 
     item.save!
+
+    LogBook.unstub(:event)
   end
 
   def test_updated
     LogBook.expects(:event).with(@user, @item, "Item updated [title[Item Title -> Other Title]]", LogBook::OPERATIONS[:update])
 
     @item.update_attributes!(:title => "Other Title")
+
+    LogBook.unstub(:event)
   end
 
   def test_item_destroyed
     LogBook.expects(:event).with(@user, @item, "Item destroyed", LogBook::OPERATIONS[:destroy])
 
     @item.destroy
+
+    LogBook.unstub(:event)
   end
 
   def test_has_many_log_book_events

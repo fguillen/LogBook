@@ -14,18 +14,21 @@ class PluginTest < MiniTest::Unit::TestCase
     item = Item.new(:log_book_historian => @user)
     LogBook.expects(:created).with(@user, item)
     item.save!
+    LogBook.unstub(:created)
   end
 
   def test_event_on_update
     @item.log_book_historian = @user
     LogBook.expects(:updated).with(@user, @item)
     @item.update_attributes(:title => "Other Title")
+    LogBook.unstub(:updated)
   end
 
   def test_event_on_destroy
     @item.log_book_historian = @user
     LogBook.expects(:destroyed).with(@user, @item)
     @item.destroy
+    LogBook.unstub(:destroyed)
   end
 end
 
