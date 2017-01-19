@@ -43,15 +43,38 @@ class LogBookTest < MiniTest::Test
     item.save!
   end
 
+  def test_created_when_muted
+    item = Item.new(:title => "Item Title")
+    item.log_book_mute = true
+
+    LogBook.expects(:event).never
+
+    item.save!
+  end
+
   def test_updated
     LogBook.expects(:event).with(@user, @item, "Item updated [title[Item Title -> Other Title]]", LogBook::OPERATIONS[:update])
 
     @item.update_attributes!(:title => "Other Title")
   end
 
+  def test_updated_when_muted
+    LogBook.expects(:event).never
+
+    @item.log_book_mute = true
+    @item.update_attributes!(:title => "Other Title")
+  end
+
   def test_item_destroyed
     LogBook.expects(:event).with(@user, @item, "Item destroyed", LogBook::OPERATIONS[:destroy])
 
+    @item.destroy
+  end
+
+  def test_item_destroyed_when_muted
+    LogBook.expects(:event).never
+
+    @item.log_book_mute = true
     @item.destroy
   end
 

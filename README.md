@@ -50,6 +50,11 @@ If you want to include _who executes the action_ use the special attribute `log_
     my_model.log_book_historian = current_user
     my_model.save!
 
+If you want to _mute_ a model change:
+
+    my_model.log_book_mute = true
+    my_model.save! # No LogBook::Event will be generated
+
 ## Rails Integration
 
 Check this example project to see how LogBook is integrated:
@@ -58,6 +63,11 @@ Check this example project to see how LogBook is integrated:
 
 ## TODO
 
+Use block configuration instead of `model.log_book_historian` do something like:
+
+    LogBook.conf(:log_book_historian => user) do
+      model.save!
+    end
 
 ## Sate of the art
 
