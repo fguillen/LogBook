@@ -55,6 +55,22 @@ If you want to _mute_ a model change:
     my_model.log_book_mute = true
     my_model.save! # No LogBook::Event will be generated
 
+If you want to _ignore_ some fields from the changes Event:
+
+    class MyModel < ActiveRecord::Base
+      log_book :ignore => [:my_counter]
+    end
+
+    my_model.update_atttibtes!(:my_counter => 9) # No LogBook::Event will be generated
+
+If you want _LogBook::Events_ to be destroyed on _Model_ destroy:
+
+    class MyModel < ActiveRecord::Base
+      log_book :dependent => :destroy
+    end
+
+In other case the _LogBook::Events_ will remain after _Model_ destroyed.
+
 ## Rails Integration
 
 Check this example project to see how LogBook is integrated:

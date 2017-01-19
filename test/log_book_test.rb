@@ -65,6 +65,14 @@ class LogBookTest < MiniTest::Test
     @item.update_attributes!(:title => "Other Title")
   end
 
+  def test_updated_with_ignore_fields
+    item_with_opts = ItemWithOpts.create!(:title => "Item Title", :my_counter => 0)
+    LogBook.expects(:event).with(@user, item_with_opts, "ItemWithOpts updated [title[Item Title -> Other Title]]", LogBook::OPERATIONS[:update])
+
+    item_with_opts.log_book_historian = @user
+    item_with_opts.update_attributes!(:title => "Other Title", :my_counter => 10)
+  end
+
   def test_item_destroyed
     LogBook.expects(:event).with(@user, @item, "Item destroyed", LogBook::OPERATIONS[:destroy])
 

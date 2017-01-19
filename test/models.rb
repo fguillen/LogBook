@@ -6,5 +6,5 @@ class Item < ActiveRecord::Base
 end
 
 class ItemWithOpts < Item
-  log_book(:dependent => :destroy)
+  log_book(:dependent => :destroy, :ignore => [:my_counter])
 end

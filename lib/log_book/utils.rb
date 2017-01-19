@@ -1,7 +1,10 @@
 module LogBook::Utils
   def self.pretty_changes(model)
+    # TODO: this code is duplicated
+    clean_changes = model.changes.select { |k,v| !model.log_book_options[:ignore].include? k.to_sym }
+
     result =
-      model.changes.reject { |k,v| k == "updated_at" || k =~ /password/ || k == "perishable_token" || k == "persistence_token" }.map do |k,v|
+      clean_changes.map do |k,v|
         old_value = v[0]
         new_value = v[1]
 

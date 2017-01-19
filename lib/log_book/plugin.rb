@@ -14,6 +14,11 @@ module LogBook::Plugin
 
       attr_accessor :log_book_historian
       attr_accessor :log_book_mute
+      cattr_accessor :log_book_options
+
+      self.log_book_options = opts
+      self.log_book_options[:ignore] ||= []
+      self.log_book_options[:ignore] << :updated_at # ignoring noisy field
     end
   end
 
@@ -23,7 +28,10 @@ module LogBook::Plugin
     end
 
     def log_book_event_on_update
-      LogBook.updated(self.log_book_historian, self) if !changes.empty? and !self.log_book_mute
+      # TODO: this code is duplicated
+      clean_changes = changes.select { |k,v| !self.log_book_options[:ignore].include? k.to_sym }
+
+      LogBook.updated(self.log_book_historian, self) if !clean_changes.empty? and !self.log_book_mute
     end
 
     def log_book_event_on_destroy
