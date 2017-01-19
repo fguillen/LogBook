@@ -28,8 +28,8 @@ class LogBookTest < MiniTest::Test
     end
 
     log_book = LogBook::Event.last
-    assert_equal(nil, log_book.historian)
-    assert_equal(nil, log_book.historizable)
+    assert_nil(log_book.historian)
+    assert_nil(log_book.historizable)
     assert_equal("Item wadus", log_book.text)
     assert_equal([], log_book.tag_list)
   end
