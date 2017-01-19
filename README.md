@@ -50,6 +50,12 @@ If you want to include _who executes the action_ use the special attribute `log_
     my_model.log_book_historian = current_user
     my_model.save!
 
+## Rails Integration
+
+Check this example project to see how LogBook is integrated:
+
+- [Skeleton](https://github.com/fguillen/Skeleton)
+
 ## TODO
 
 
