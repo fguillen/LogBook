@@ -28,7 +28,7 @@ module LogBook::Plugin
     end
 
     def log_book_event_on_update
-      # TODO: this code is duplicated
+      # TODO: this line of code is duplicated
       clean_changes = changes.select { |k,v| !self.log_book_options[:ignore].include? k.to_sym }
 
       LogBook.updated(self.log_book_historian, self) if !clean_changes.empty? and !self.log_book_mute

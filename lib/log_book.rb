@@ -13,16 +13,16 @@ module LogBook
     :destroy => "destroy"
   }
 
-  def self.event(historian, historizable, text, tag_list)
+  def self.event(historian, historizable, differences, tag_list)
     tag_list_composed = []
     tag_list_composed << scope_tag(historian)   if historian
     tag_list_composed << kind_tag(historizable) if historizable
     tag_list_composed += [tag_list].flatten     if tag_list
-    
+
     LogBook::Event.create!(
       :historian => historian,
       :historizable => historizable,
-      :text => text,
+      :differences => differences,
       :tag_list => tag_list_composed
     )
   end
@@ -30,15 +30,15 @@ module LogBook
   private
 
   def self.created(historian, historizable)
-    LogBook.event(historian, historizable, "#{historizable.class.name} created", LogBook::OPERATIONS[:create])
+    LogBook.event(historian, historizable, nil, LogBook::OPERATIONS[:create])
   end
 
   def self.updated(historian, historizable)
-    LogBook.event(historian, historizable, "#{historizable.class.name} updated [#{LogBook::Utils.pretty_changes(historizable)}]", LogBook::OPERATIONS[:update])
+    LogBook.event(historian, historizable, LogBook::Utils.pretty_changes(historizable), LogBook::OPERATIONS[:update])
   end
 
   def self.destroyed(historian, historizable)
-    LogBook.event(historian, historizable, "#{historizable.class.name} destroyed", LogBook::OPERATIONS[:destroy])
+    LogBook.event(historian, historizable, nil, LogBook::OPERATIONS[:destroy])
   end
 
   def self.scope_tag(historian)
