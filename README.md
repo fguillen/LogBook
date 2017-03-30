@@ -85,6 +85,10 @@ Use block configuration instead of `model.log_book_historian` do something like:
       model.save!
     end
 
+Add index:
+
+    add_index :log_book_events, [:historizable_id, :historizable_type]
+
 ## Sate of the art
 
 Beta version but already used in production environments
