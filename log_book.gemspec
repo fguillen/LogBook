@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "rails"
-  spec.add_runtime_dependency "protected_attributes"
   spec.add_runtime_dependency "acts-as-taggable-on"
 
   spec.add_development_dependency "bundler"

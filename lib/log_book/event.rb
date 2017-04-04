@@ -1,8 +1,6 @@
 class LogBook::Event < ::ActiveRecord::Base
   self.table_name = "log_book_events"
 
-  attr_accessible :historian, :historizable, :differences, :tag_list
-
   acts_as_taggable
 
   belongs_to :historian, :polymorphic => true
