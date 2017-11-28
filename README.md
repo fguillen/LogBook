@@ -23,6 +23,7 @@ As the Model should be loaded after ActiveReccord has established the connection
 ### ActsOnTaggableOn dependency
 
     rails generate acts_as_taggable_on:migration
+    # rake acts_as_taggable_on_engine:install:migrations # for version '~> 4.0' or superior
     rake db:migrate
 
 ## Usage
