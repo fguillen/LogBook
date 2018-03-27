@@ -3,7 +3,7 @@ class LogBook::Event < ::ActiveRecord::Base
 
   acts_as_taggable
 
-  belongs_to :historian, :polymorphic => true
+  belongs_to :historian, :polymorphic => true, :optional => true
   belongs_to :historizable, :polymorphic => true
 
   scope :by_recent, -> { order("id desc") }

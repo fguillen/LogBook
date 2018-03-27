@@ -1,4 +1,4 @@
-class CreateLogBookEvents < ActiveRecord::Migration
+class CreateLogBookEvents < ActiveRecord::Migration[4.2]
   def self.up
     create_table :log_book_events do |t|
       t.integer :historian_id

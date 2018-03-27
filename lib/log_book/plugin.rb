@@ -29,8 +29,11 @@ module LogBook::Plugin
 
     def log_book_event_on_update
       # TODO: this line of code is duplicated
-      clean_changes = changes.select { |k,v| !self.log_book_options[:ignore].include? k.to_sym }
-
+      if ActiveRecord::VERSION::STRING.to_f >= 5.1
+        clean_changes = saved_changes.select { |k,v| !self.log_book_options[:ignore].include? k.to_sym }
+      else
+        clean_changes = changes.select { |k,v| !self.log_book_options[:ignore].include? k.to_sym }
+      end
       LogBook.updated(self.log_book_historian, self) if !clean_changes.empty? and !self.log_book_mute
     end
 
