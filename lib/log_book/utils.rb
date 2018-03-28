@@ -1,7 +1,11 @@
 module LogBook::Utils
   def self.pretty_changes(model)
     # TODO: this line of code is duplicated
-    clean_changes = model.changes.select { |k,v| !model.log_book_options[:ignore].include? k.to_sym }
+    if ActiveRecord::VERSION::STRING.to_f >= 5.1
+      clean_changes = model.saved_changes.select { |k,v| !model.log_book_options[:ignore].include? k.to_sym }
+    else
+      clean_changes = model.changes.select { |k,v| !model.log_book_options[:ignore].include? k.to_sym }
+    end
 
     result =
       clean_changes.map do |k,v|
