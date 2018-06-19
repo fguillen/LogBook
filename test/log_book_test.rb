@@ -135,5 +135,18 @@ class LogBookTest < MiniTest::Test
 
     assert_equal(false, LogBook::Event.exists?(log_book_event.id))
   end
+
+  def test_hash_field
+    differences = "DIFFERENCES"
+
+    hash_before = JSON.parse(File.read("#{FIXTURES}/version_1_before.json"))
+    hash_after = JSON.parse(File.read("#{FIXTURES}/version_1_after.json"))
+
+    item_with_json = ItemWithJson.create!(:json_field => hash_before)
+
+    LogBook.expects(:event).with(@user, item_with_json, differences, LogBook::OPERATIONS[:update])
+
+    item_with_json.update_attributes!(:json_field => hash_after, :log_book_historian => @user)
+  end
 end
 

@@ -8,6 +8,10 @@ ActiveRecord::Schema.define :version => 0 do
     t.integer :my_counter
   end
 
+  create_table :item_with_jsons, :force => true do |t|
+    t.text :json_field
+  end
+
   # acts-as-taggable-on
   # https://github.com/mbleigh/acts-as-taggable-on/blob/6e1837762f0d60edc9b6c2d92b5a9435f404173f/spec/internal/db/schema.rb
   create_table :tags, force: true do |t|
