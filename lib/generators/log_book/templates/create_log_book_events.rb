@@ -10,7 +10,8 @@ class CreateLogBookEvents < ActiveRecord::Migration[4.2]
       t.timestamps :null => false
     end
 
-    add_index :log_book_events, [:historizable_id, :historizable_type]
+    add_index :log_book_events, [:historizable_id, :historizable_type, :created_at], :name => "index_log_book_events_on_historizable_and_created_at"
+    add_index :log_book_events, [:created_at]
   end
 
   def self.down
