@@ -1,8 +1,6 @@
-
 require "active_record"
 require "active_support/core_ext/module"
 require "assert_difference"
-require "acts-as-taggable-on"
 
 # require "minitest/unit"
 require "minitest/autorun"

@@ -1,4 +1,5 @@
 require_relative "test_helper"
+require "pry"
 
 class LogBookTest < MiniTest::Test
   def setup
@@ -12,35 +13,32 @@ class LogBookTest < MiniTest::Test
 
   def test_event
     assert_difference "LogBook::Event.count", 1 do
-      LogBook.event(@user, @item, ["DIFFERENCE"], LogBook::OPERATIONS[:create])
+      LogBook.event(@user, @item, ["DIFFERENCE"])
     end
 
     log_book_event = LogBook::Event.last
     assert_equal(@user, log_book_event.historian)
     assert_equal(@item, log_book_event.historizable)
     assert_equal(["DIFFERENCE"], log_book_event.differences)
-    assert_equal(["user", "item", "create"].sort, log_book_event.tag_list.sort)
   end
 
   def test_event_with_nils
     assert_difference "LogBook::Event.count", 1 do
-      LogBook.event(nil, nil, ["DIFFERENCE"], nil)
+      LogBook.event(nil, nil, ["DIFFERENCE"])
     end
 
     log_book_event = LogBook::Event.last
     assert_nil(log_book_event.historian)
     assert_nil(log_book_event.historizable)
     assert_equal(["DIFFERENCE"], log_book_event.differences)
-    assert_equal([], log_book_event.tag_list)
   end
 
   def test_created
     item = Item.new(:title => "Item Title")
     item.log_book_historian = @user
-
-    LogBook.expects(:event).with(@user, item, nil, LogBook::OPERATIONS[:create])
-
     item.save!
+
+    assert_equal(:create, item.log_book_events.last.kind)
   end
 
   def test_created_when_muted
@@ -60,10 +58,9 @@ class LogBookTest < MiniTest::Test
         "after" => "Other Title"
       }
     ]
-
-    LogBook.expects(:event).with(@user, @item, differences, LogBook::OPERATIONS[:update])
-
     @item.update_attributes!(:title => "Other Title")
+
+    assert_equal(:update, @item.log_book_events.last.kind)
   end
 
   def test_updated_when_muted
@@ -83,16 +80,18 @@ class LogBookTest < MiniTest::Test
     ]
 
     item_with_opts = ItemWithOpts.create!(:title => "Item Title", :my_counter => 0)
-    LogBook.expects(:event).with(@user, item_with_opts, differences, LogBook::OPERATIONS[:update])
+    LogBook.expects(:event).with(@user, item_with_opts, differences)
 
     item_with_opts.log_book_historian = @user
     item_with_opts.update_attributes!(:title => "Other Title", :my_counter => 10)
   end
 
   def test_item_destroyed
-    LogBook.expects(:event).with(@user, @item, nil, LogBook::OPERATIONS[:destroy])
+    LogBook.expects(:event).with(@user, @item, nil)
 
     @item.destroy
+
+    assert_equal(:destroy, LogBook::Event.last.kind)
   end
 
   def test_item_destroyed_when_muted
@@ -105,8 +104,8 @@ class LogBookTest < MiniTest::Test
   def test_has_many_log_book_events
     LogBook::Event.destroy_all
 
-    log_book_event_1 = LogBook.event(@user, @item, nil, LogBook::OPERATIONS[:create])
-    log_book_event_2 = LogBook.event(@user, @item, nil, LogBook::OPERATIONS[:update])
+    log_book_event_1 = LogBook.event(@user, @item, nil)
+    log_book_event_2 = LogBook.event(@user, @item, nil)
 
     @item.reload
 
@@ -116,7 +115,7 @@ class LogBookTest < MiniTest::Test
   end
 
   def test_log_book_events_nullify_on_historizable_destroy
-    log_book_event = LogBook.event(@user, @item, nil, LogBook::OPERATIONS[:create])
+    log_book_event = LogBook.event(@user, @item, nil)
 
     @item.destroy
 
@@ -129,7 +128,7 @@ class LogBookTest < MiniTest::Test
 
   def test_log_book_events_destroy_on_historizable_destroy
     item_with_opts = ItemWithOpts.new
-    log_book_event = LogBook.event(@user, item_with_opts, nil, LogBook::OPERATIONS[:create])
+    log_book_event = LogBook.event(@user, item_with_opts, nil)
 
     item_with_opts.destroy
 

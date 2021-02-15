@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["fguillen.mail@gmail.com"]
   spec.description   = "Storing an events log book"
   spec.summary       = "Storing an events log book"
-  spec.homepage      = "https://github.com/fguillen/LogBook"
+  spec.homepage      = "https://github.com/DaliaResearch/LogBook"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -19,9 +19,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "rails"
-  spec.add_runtime_dependency "acts-as-taggable-on"
 
   spec.add_development_dependency "bundler"
+  spec.add_development_dependency "pry"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "mocha"
   spec.add_development_dependency "sqlite3"

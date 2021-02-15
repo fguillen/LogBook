@@ -20,17 +20,11 @@ As the Model should be loaded after ActiveReccord has established the connection
     rails generate log_book:migration
     rake db:migrate
 
-### ActsOnTaggableOn dependency
-
-    rails generate acts_as_taggable_on:migration
-    # rake acts_as_taggable_on_engine:install:migrations # for version '~> 4.0' or superior
-    rake db:migrate
-
 ## Usage
 
 In any point:
 
-    LogBook.event(<who executes the action>, <over which object>, <text>, <list of tags>)
+    LogBook.event(<who executes the action>, <over which object>, <text>)
 
 For example:
 

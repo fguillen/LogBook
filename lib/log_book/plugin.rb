@@ -34,7 +34,7 @@ module LogBook::Plugin
       else
         clean_changes = changes.select { |k,v| !self.log_book_options[:ignore].include? k.to_sym }
       end
-      LogBook.updated(self.log_book_historian, self) if !clean_changes.empty? and !self.log_book_mute
+      LogBook.updated(self.log_book_historian, self) if !clean_changes.empty? && !self.log_book_mute
     end
 
     def log_book_event_on_destroy
