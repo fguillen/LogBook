@@ -63,14 +63,14 @@ class LogBookTest < MiniTest::Test
 
     LogBook.expects(:event).with(@user, @item, differences, LogBook::OPERATIONS[:update])
 
-    @item.update_attributes!(:title => "Other Title")
+    @item.update!(:title => "Other Title")
   end
 
   def test_updated_when_muted
     LogBook.expects(:event).never
 
     @item.log_book_mute = true
-    @item.update_attributes!(:title => "Other Title")
+    @item.update!(:title => "Other Title")
   end
 
   def test_updated_with_ignore_fields
@@ -86,7 +86,7 @@ class LogBookTest < MiniTest::Test
     LogBook.expects(:event).with(@user, item_with_opts, differences, LogBook::OPERATIONS[:update])
 
     item_with_opts.log_book_historian = @user
-    item_with_opts.update_attributes!(:title => "Other Title", :my_counter => 10)
+    item_with_opts.update!(:title => "Other Title", :my_counter => 10)
   end
 
   def test_item_destroyed
@@ -124,7 +124,7 @@ class LogBookTest < MiniTest::Test
 
     assert_equal(true, log_book_event.historizable_id.nil?)
     assert_equal(true, log_book_event.historizable.nil?)
-    assert_equal("Item", log_book_event.historizable_type)
+    assert_equal(true, log_book_event.historizable_type.nil?)
   end
 
   def test_log_book_events_destroy_on_historizable_destroy
@@ -136,4 +136,3 @@ class LogBookTest < MiniTest::Test
     assert_equal(false, LogBook::Event.exists?(log_book_event.id))
   end
 end
-

@@ -19,7 +19,7 @@ class PluginTest < MiniTest::Test
   def test_event_on_update
     @item.log_book_historian = @user
     LogBook.expects(:updated).with(@user, @item)
-    @item.update_attributes(:title => "Other Title")
+    @item.update!(:title => "Other Title")
   end
 
   def test_event_on_destroy
@@ -28,4 +28,3 @@ class PluginTest < MiniTest::Test
     @item.destroy
   end
 end
-
