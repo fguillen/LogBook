@@ -83,6 +83,10 @@ Check this example project to see how LogBook is integrated:
 
 - [Skeleton](https://github.com/fguillen/Skeleton)
 
+Or this commit in a more modern Rails project:
+
+- [RailsSkeleton](https://github.com/fguillen/RailsSkeleton/commit/4c16c6402254bf4c44b7589b404fc22c746bae15)
+
 ## TODO
 
 Use block configuration instead of `model.log_book_historian` do something like:
