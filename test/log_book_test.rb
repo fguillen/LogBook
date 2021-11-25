@@ -135,4 +135,15 @@ class LogBookTest < MiniTest::Test
 
     assert_equal(false, LogBook::Event.exists?(log_book_event.id))
   end
+
+  def test_created_when_global_muted
+    item = Item.new(:title => "Item Title")
+    LogBook.muted = true
+
+    LogBook::Event.expects(:create!).never
+
+    item.save!
+
+    LogBook.muted = false
+  end
 end

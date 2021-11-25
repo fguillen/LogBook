@@ -56,6 +56,11 @@ If you want to _mute_ a model change:
     my_model.log_book_mute = true
     my_model.save! # No LogBook::Event will be generated
 
+If you want to _mute_ LogBook globally:
+
+    LogBook.mute = true
+    my_model.save! # No LogBook::Event will be generated
+
 If you want to _ignore_ some fields from the changes Event:
 
     class MyModel < ActiveRecord::Base

@@ -12,7 +12,11 @@ module LogBook
     :destroy => "destroy"
   }
 
+  @@muted = false
+
   def self.event(historian, historizable, differences, tag_list)
+    return if @@muted
+
     tag_list_composed = []
     tag_list_composed << scope_tag(historian)   if historian
     tag_list_composed << kind_tag(historizable) if historizable
@@ -24,6 +28,14 @@ module LogBook
       :differences => differences,
       :tag_list => tag_list_composed
     )
+  end
+
+  def self.muted=(value)
+    @@muted = value
+  end
+
+  def self.muted
+    @@muted
   end
 
   private
@@ -48,4 +60,3 @@ module LogBook
     historizable.class.name.underscore
   end
 end
-
