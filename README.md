@@ -1,6 +1,6 @@
 # LogBook
 
-Storing an events log book.
+Ruby on Rails, Automatically keeping record of all Model Changes
 
 ## Installation
 
