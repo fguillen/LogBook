@@ -126,3 +126,22 @@ class CreateLogBookEventsUuidsSupport < ActiveRecord::Migration[4.2]
   end
 end
 ```
+
+## Development
+
+### Running test
+
+```
+rake test
+```
+
+### Release new version
+
+Update: `lib/log_book/version.rb`
+
+```
+git tag -a v[version] -m "Changelog..."
+git push origin v[version]
+gem build
+gem push log_book-[version].gem
+```
