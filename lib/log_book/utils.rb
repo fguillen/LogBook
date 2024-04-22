@@ -1,4 +1,3 @@
-puts "Loading LogBook::Utils"
 module LogBook::Utils
   def self.pretty_changes(model)
     # TODO: this line of code is duplicated
