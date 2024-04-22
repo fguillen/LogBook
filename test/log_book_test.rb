@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class LogBookTest < MiniTest::Test
+class LogBookTest < Minitest::Test
   def setup
     LogBook::Event.destroy_all
     User.destroy_all
@@ -66,6 +66,22 @@ class LogBookTest < MiniTest::Test
     @item.update!(:title => "Other Title")
   end
 
+  def test_updated_datetime_field
+    item = Item.create(:open_at => "2024-01-02 03:04:05")
+
+    differences = [
+      {
+        "key" => "open_at",
+        "before" => "2024-01-02 03:04:05",
+        "after" => "2024-01-03 03:04:05"
+      }
+    ]
+
+    LogBook.expects(:event).with(nil, item, differences, LogBook::OPERATIONS[:update])
+
+    item.update!(:open_at => "2024-01-03 03:04:05")
+  end
+
   def test_updated_when_muted
     LogBook.expects(:event).never
 
@@ -87,6 +103,29 @@ class LogBookTest < MiniTest::Test
 
     item_with_opts.log_book_historian = @user
     item_with_opts.update!(:title => "Other Title", :my_counter => 10)
+  end
+
+  def test_touch
+    differences = [
+      {
+        "key" => "open_at",
+        "before" => nil,
+        "after" => "2024-04-01 10:11:12"
+      }
+    ]
+
+    LogBook.expects(:event).with(@user, @item, differences, LogBook::OPERATIONS[:update])
+
+    Timecop.freeze("2024-04-01 10:11:12 UTC") do
+      @item.touch(:open_at)
+    end
+  end
+
+  def test_touch_when_muted
+    LogBook.expects(:event).never
+
+    @item.log_book_mute = true
+    @item.touch(:open_at)
   end
 
   def test_item_destroyed

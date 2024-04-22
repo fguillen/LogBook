@@ -1,3 +1,4 @@
+puts "Loading LogBook::Utils"
 module LogBook::Utils
   def self.pretty_changes(model)
     # TODO: this line of code is duplicated
@@ -12,8 +13,8 @@ module LogBook::Utils
         old_value = v[0]
         new_value = v[1]
 
-        old_value = old_value.to_s( :localdb ) if old_value.instance_of? ActiveSupport::TimeWithZone
-        new_value = new_value.to_s( :localdb ) if new_value.instance_of? ActiveSupport::TimeWithZone
+        old_value = old_value.utc.strftime("%Y-%m-%d %H:%M:%S") if old_value.is_a? Time
+        new_value = new_value.utc.strftime("%Y-%m-%d %H:%M:%S") if new_value.is_a? Time
 
         {
           "key" => k,

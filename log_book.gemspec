@@ -21,10 +21,11 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "rails", ">= 6.0"
   spec.add_runtime_dependency "acts-as-taggable-on", ">= 8.0"
 
-  spec.add_development_dependency "bundler", ">= 2.0"
-  spec.add_development_dependency "rake", ">= 0.13"
-  spec.add_development_dependency "mocha", ">= 1.13"
-  spec.add_development_dependency "sqlite3", ">= 1.0"
   spec.add_development_dependency "assert_difference", ">= 1.0"
+  spec.add_development_dependency "bundler", ">= 2.0"
   spec.add_development_dependency "minitest", ">= 5.1"
+  spec.add_development_dependency "mocha", "~> 2.2"
+  spec.add_development_dependency "rake", ">= 0.13"
+  spec.add_development_dependency "sqlite3", "~> 1.4"
+  spec.add_development_dependency "timecop"
 end

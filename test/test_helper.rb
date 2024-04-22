@@ -6,7 +6,8 @@ require "acts-as-taggable-on"
 
 # require "minitest/unit"
 require "minitest/autorun"
-require "mocha/mini_test"
+require "mocha/minitest"
+require "timecop"
 
 require_relative "../lib/log_book"
 
@@ -25,8 +26,7 @@ CreateLogBookEvents.up
 load("#{File.dirname(__FILE__)}/schema.rb")
 load("#{File.dirname(__FILE__)}/models.rb")
 
-class MiniTest::Test
+class Minitest::Test
   include AssertDifference
   FIXTURES = File.expand_path("#{File.dirname(__FILE__)}/fixtures")
 end
-

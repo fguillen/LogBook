@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class PluginTest < MiniTest::Test
+class PluginTest < Minitest::Test
   def setup
     LogBook::Event.destroy_all
     User.destroy_all
@@ -26,5 +26,11 @@ class PluginTest < MiniTest::Test
     @item.log_book_historian = @user
     LogBook.expects(:destroyed).with(@user, @item)
     @item.destroy
+  end
+
+  def test_event_on_touch
+    @item.log_book_historian = @user
+    LogBook.expects(:updated).with(@user, @item)
+    @item.touch(:open_at)
   end
 end

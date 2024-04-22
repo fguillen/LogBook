@@ -8,6 +8,7 @@ module LogBook::Plugin
     def log_book(opts = {})
       after_create :log_book_event_on_create
       after_update :log_book_event_on_update
+      after_touch :log_book_event_on_update
       before_destroy :log_book_event_on_destroy
 
       has_many :log_book_events, :class_name => "LogBook::Event", :as => :historizable, :dependent => (opts[:dependent] || :nullify)
