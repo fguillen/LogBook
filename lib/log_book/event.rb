@@ -8,5 +8,5 @@ class LogBook::Event < ::ActiveRecord::Base
 
   scope :by_recent, -> { order("id desc") }
 
-  serialize :differences, JSON
+  serialize :differences, coder: JSON
 end
